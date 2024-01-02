@@ -23,19 +23,18 @@ talking about the Delete data: we need to connect with the services
 and delete the data based on the delete type as we mentioned above(soft delete, hard delete).
 
 ## what we use in the project
-we use a 
-##### factory design patter:
+##### factory design pattern:
 determine what kind of data you want to get or add
-#### strategy design patter:
+#### strategy design pattern:
 use with "Collect data"  same function but a different behavior
-#### Template design patter:
+#### Template design pattern:
 determine how can the user delete data
 #### Log4j :
 for create a logger in the project
 #### itext: 
-for create a PDF file 
+to create a PDF file 
 #### zip : 
-for create a ZIP file
+to create a ZIP file
 
 
 
