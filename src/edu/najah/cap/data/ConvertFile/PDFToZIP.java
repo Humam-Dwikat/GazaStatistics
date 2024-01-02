@@ -1,11 +1,13 @@
 package edu.najah.cap.data.ConvertFile;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class PDFToZIP implements IconvertTo {
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    Logger logger = Logger.getLogger(PDFToZIP.class);
 
     @Override
     public File createZipFile(File fileToZip) throws IOException {
@@ -14,11 +16,9 @@ public class PDFToZIP implements IconvertTo {
         try (FileOutputStream fos = new FileOutputStream(zipFile);
              ZipOutputStream zos = new ZipOutputStream(fos)) {
 
-            // Add the file to ZIP
-            ZipEntry entry = new ZipEntry(fileToZip.getName()); // Use the original file name in ZIP
+            ZipEntry entry = new ZipEntry(fileToZip.getName());
             zos.putNextEntry(entry);
 
-            // Write file content to ZIP
             try (FileInputStream fis = new FileInputStream(fileToZip)) {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -26,9 +26,22 @@ public class PDFToZIP implements IconvertTo {
                     zos.write(buffer, 0, bytesRead);
                 }
             }
+            catch (Exception err){
+                logger.error("Error while create zip file: "+ err);
+            }
 
             zos.closeEntry();
+            logger.info("Convert the file to Zip file ");
+
+        }
+        catch (FileNotFoundException err){
+            logger.error("Error: File not found"+err.toString());
+            throw new FileNotFoundException("File not found");
+        }
+        catch (Exception err){
+            logger.error("Error while create zip file: " + err);
         }
 
         return zipFile;
-    }}
+    }
+}
