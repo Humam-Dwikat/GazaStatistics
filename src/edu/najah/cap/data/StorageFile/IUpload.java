@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface IUpload {
 
-    void upload(String file_name, File file);
+    void upload(String file_name, File file) throws Exception;
 }
