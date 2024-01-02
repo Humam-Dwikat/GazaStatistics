@@ -18,6 +18,7 @@ import edu.najah.cap.payment.Transaction;
 import edu.najah.cap.posts.IPostService;
 import edu.najah.cap.posts.Post;
 import edu.najah.cap.posts.PostService;
+import org.apache.log4j.BasicConfigurator;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class Application {
 
     private static String loginUserName;
 
-    public static void main(String[] args) throws IOException, DocumentException {
+    public static void main(String[] args) throws Exception {
         generateRandomData();
         Instant start = Instant.now();
         System.out.println("Application Started: " + start);
@@ -44,8 +45,15 @@ public class Application {
         String userName = scanner.nextLine();
         setLoginUserName(userName);
         //TODO Your application starts here. Do not Change the existing code
+        BasicConfigurator.configure();
+
         GazaStats gazaStats= new GazaStats(userActivityService,paymentService,userService,postService);
         File file = gazaStats.get_pdf_file(userName,postService);
+        gazaStats.addData(userActivityService,new UserActivity("user" + 1, "activity" + 2 + "." + 4124, Instant.now().toString()));
+        gazaStats.direct_download(file,"posts.pdf");
+        File zip_file = gazaStats.create_zip_file(file);
+        gazaStats.direct_download(file,"post_zip_file.zip");
+
 
 
 
