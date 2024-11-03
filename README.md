@@ -1,4 +1,4 @@
-#GazaStatistics 
+# GazaStatistics 
 ======================
 GazaStatistics is a Java-based project that simulates the management of people’s data in Gaza. It enables recording, searching, and deleting individual data entries, demonstrating effective data handling techniques.
 
